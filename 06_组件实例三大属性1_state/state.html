@@ -40,14 +40,22 @@
           );
         }
         // changeWeather放在那里？======放在weather的原型对象上,供weather实例使用
-        //由于changeWeather是作为onClick的回调，所以不是通过实例调用的，是直接调用，再加上类中的方法默认开启了局部的严格模式，所以changeWeather中的this为undefined
+        // 由于changeWeather是作为onClick的回调，所以<不是通过实例>调用的，是直接调用，再加上类中的方法默认开启了局部的严格模式，所以changeWeather中的this为undefined
         changeWeather() {
           console.log("标题被点击了");
           console.log(this);
+          // ！！！注意：状态(state)不可直接更改，要借助一个内置的api去更改
+          // 正确更新 state
+          this.setState((state) => ({
+            isHot: !state.isHot,
+          }));
         }
       }
       //2.渲染组件到页面
       ReactDOM.render(<Weather />, document.getElementById("test"));
+
+      // const w = new Weather();
+      // w.changeWeather();
       /* 
 			执行了ReactDOM.render(<Weather/>.......之后，发生了什么？
 					1.React解析组件标签，找到了Weather组件。

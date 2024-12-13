@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        class Person{
+            constructor(name,age){
+                this.name = name;
+                this.age = age;
+            }
+            speak(){
+                //类中定义的方法 已经在局部开好了严格模式
+                // 所以它不指向window
+                console.log(this);
+            }
+
+            
+        }
+        const p1 = new Person('tom',19);
+        p1.speak();
+
+        const x = p1.speak;
+        // undefined???
+        //类中定义的方法 已经在局部开好了严格模式
+        // 所以它不指向window,所以变成了undefined
+        x();
+
+        function demo(){
+            'use strict'
+            // 这里加上严格模式，所以这里也是undefined
+            console.log(this);
+        }
+        demo();
+    </script>
+</body>
+</html>
