@@ -18,12 +18,18 @@
     <!-- 引入babel，用于将jsx转为js -->
     <script type="text/javascript" src="../js/babel.min.js"></script>
 
+    <!-- 引入prop=types，用于对组建标签属性进行限制 -->
+    <script type="text/javascript" src="../js/prop-types.js"></script>
+
+
     <script type="text/babel"> /* 此处一定要写babel */
         // 创建组件
         class Person extends React.Component {
-            // state = {name:'tom',age:19,sex:'男'};
+            
             render(){
+                // props是只读的
                 const {name,age,sex} = this.props;
+                // this.props.name='skxm' 注意此行会报错。因为props是只读的
                 return(
                     <ul>
                         <li>姓名：{name}</li>
@@ -32,6 +38,15 @@
                     </ul>
                 )
             }
+        }
+        // 设置属性类型 16弃用
+        Person.propTypes = {
+            name:PropTypes.string.isRequired,
+            sex:PropTypes.string
+        }
+
+        Person.defaultProps = {
+            sex:'未知'
         }
         
         //2.渲染虚拟DOM到页面
